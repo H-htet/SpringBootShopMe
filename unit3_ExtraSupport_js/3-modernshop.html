@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernShop</title>
+</head>
+<body>
+    <h1>ModernShop</h1>
+    <h3></h3>
+</body>
+<script>
+    let name=window.prompt("Enter your choose:noodle or coffee");//js mhar variable ga browser mhar twar a lote lote tr // c , java mhar kya ko sat htae ka memory mhar twar tain p a lote lote tr
+    alert("You have choosen "+name);
+    let h3=document.querySelector('h3');
+    if (name==='noodle') {
+        //h3.textContent='noodle';
+        let noodleType=window.prompt("normal or special");
+        if(noodleType==='normal'){
+            h3.textContent='Normal Noodle';
+        }else if(noodleType==='special'){
+            //h3.textContent='Special Noodle';
+            let passcode=window.prompt("Please enter your passcode");
+            if(passcode==='666'){
+                window.location.replace("3-spCustomer.html");
+            }else{
+                window.location.replace("3-resign.html");
+            }
+            //window.location.replace("3-spCustomer.html");//by naming convention standard for next developer to easy maintain 
+            //window.location.href="3-spCustomer.html";
+        }else{
+            h3.textContent='VIP Customer';
+        }
+    }else{
+        h3.textContent='coffee';
+    }
+</script>
+</html>

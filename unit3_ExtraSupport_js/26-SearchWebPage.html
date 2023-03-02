@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="search">Search Here:</label>
+    <input type="text" id="search">
+    <button>Search</button>
+    <p></p>
+</body>
+<script>
+    // Local Database a thu create ml
+let LocalDatabaseData=['win:12345','htut:345622','vij:@#@#$$', 'Ja:78yu'];
+//let Userinput='vij';
+let userinput = document.querySelector('input');
+let para = document.querySelector('p');
+let button = document.querySelector('button');
+button.addEventListener('click',function(){// function name ma pr tr ko anonymous func loe kaw tl
+    let SearchData=userinput.value.toLowerCase();
+    for (let i = 0; i < LocalDatabaseData.length; i++) {
+    let splitContactArr=LocalDatabaseData[i].split(":");
+    //splitContactArr=['win','12345']
+    if(splitContactArr[0].toLowerCase() === SearchData){
+        //console.log(splitContactArr[0] + ' Number is '  + splitContactArr[1]);
+        para.textContent=splitContactArr[0]+' Number is '+splitContactArr[1];
+        break;
+    }/*else{
+        console.log(Userinput+ ' is not found');// 4 times result hwat nay tl
+    }*/
+
+    //console.log(LocalDatabaseData.length); //4
+    if(i===LocalDatabaseData.length-1){
+        //console.log(Userinput+' is not found');
+        para.textContent = SearchData + ' is not found!';
+    }
+}
+})
+    
+
+
+
+
+
+</script>
+</html>
+
+
