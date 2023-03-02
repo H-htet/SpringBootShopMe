@@ -1,0 +1,18 @@
+Setup MySQL Community Server
+
+1.Download MySQL Installer
+2.Setup MySQL Community Server
+3.Setup MySQL Workbench
+#mysql.org ->>MySQL Download -> MySQL Community Server -> choose MAC OS -> download "mysql-8.0.32-macos13-arm64.dmg"->install->Authenticatio Method(choose "Use Legacy Authentication Method[Retain MySQL 5.x Compatibility]") -> MySQL root password (root1234)-> select Configure MYSQL Server as a Window Service-> Window Service Name:MySQL80 -> select "Start the MySQL Server at System Startup"-> Run Window Service choose Standard System Account
+.you can check,start,stop mysqlserver from Task Manager(window) 
+or 
+.you can check mysqlserver from Activity Monitor(mac) and go to the  Apple menu and open System Preferences. Choose the “MySQL” preference panel, then click on the “Start MySQL Server” button to start MySQL Server on Mac. If the server is already started, the button will change to “Stop MySQL Server”.
+https://www.positronx.io/how-to-install-mysql-on-mac-configure-mysql-in-terminal/
+#mysql.org ->>MySQL Download -> MySQL WorkBench -> choose MAC OS -> download "mysql-workbench-community-8.0.32-macos-x86_64.dmg"
+#mysql command line client install ----> pending
+https://www.google.com/search?client=safari&rls=en&sxsrf=AJOqlzVaqFORaH_b9BNoDRadwn54ZNVXXA:1675758210301&q=How+do+I+download+MySQL+command+line+client+on+Mac%3F&sa=X&ved=2ahUKEwiUz-rm_YL9AhXDgFYBHdZDAQUQzmd6BAgLEAU&biw=1440&bih=796&dpr=2#kpvalbx=_uwriY5yaFcmCoATCgZagBQ_32
+
+
+installar file path :
+/Users/htethtethtun/Java/mysql-8.0.32-macos13-arm64.dmg
+/Users/htethtethtun/Java/mysql-workbench-community-8.0.32-macos-x86_64.dmg

@@ -1,0 +1,40 @@
+@DataJpaTest annotation
+
+.SpringBoot provides @DataJpaTest annotation to test only persistence layer components or repository layer components.
+.Sometimes we have a requirement to test only the repository layer. So that is the reason the spring boot provides @DataJpaTest annotation to test only the spring Data JPA repositories.
+
+.Typically we use three architecture in our spring boot application.
+.We have Controller Layer, Service Layer, Repository Layer(DAO Layer), and in order to test only the repository layer components or persistence layer components we can use @DataJpaTest annotation.
+.@DataJpaTest annotation will only load the spring data JPA components. It will not load service or controller layer components
+.@DataJpaTest annotation will automatically know how to configure in-memory embedded database for testing purposes.
+.In order to unit test the repository layer, we don't need to connect the real database like MySQL or PostgreSQL database.
+
+Recap
+-----
+1.Spring Boot provides the @DataJpaTest annotation to test the persistence layer components that will autoconfigure in-memory embedded database for testing purposes.
+2.The @DataJpaTest annotation doesn't load other Spring beans(@Components, @Controller, @Service, and annotated beans) into ApplicationContext
+※Typically, we will create a lot of controllers, services, Spring data JPA repository in our springboot app and 
+We will typically use @Component, @Controller, @Service and @Bean annotation to create spring bean that load beans in the application context.
+３.By default, @DataJpaTest annotation is to scan for @Entity classes and configures spring data jpa repositories annotated with @Repository annotations.
+4.By default, tests annotated with @DataJpaTest are transational and rollback at the end of each test.
+In order to disable the rollback, you can add @RollBackTest annotation on top of each test case.
+
+*******
+1.@DataJpaTest annotation is not only to test spring data jpa repositories but also to test JPA related components.
+For examples, we have autowired four classes DataSource, JdbcTemplate, EntityManager, UserRepository.
+.DataSource is a part of JDBC driver.
+.JdbcTemplate is a part of spring JDBC.
+.EntityManager is a part of JPA.
+.UserRepository is a part of spring data JPA
+※You can test these four classed using @DataJpaTest annotation.
+
+In this course, we will focus on testing spring data JPA repositories.
+We are not going to test data source methods, jdbc template methods, entity manager methods.
+
+*********
+
+Summarize key points about @DataJpaTest annotation
+--------------------------------------------------
+
+
+

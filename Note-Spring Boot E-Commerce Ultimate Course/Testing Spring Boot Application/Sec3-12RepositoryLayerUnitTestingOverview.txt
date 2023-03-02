@@ -1,0 +1,39 @@
+Spring Boot Application Repository Layer Testing
+------------------------------------------------
+
+How to Unit Test Repository Layer Components?
+
+.Spring Boot provides @DataJpaTest annotation which can use to test the repository layer components.
+.Repository layer connect database. 
+.Database can be any RDBMS like MySQL, PostgreSQL, Oracle etc.
+.But in case of unit testing the repository layer components, we don't have to connect to the real database.
+.@DataJpaTest annotation internally provides an in-mmemory database for testing purposes.
+
+Let's see more about @DataJpaTest。In Repository layer testing, we willl see all these following unit test cases.
+
+1.Overview if @DataJpaTest
+2.Write Unit test for save employee operation
+3.Write Unit test for get all employee operation
+4.Write Unit test for get employee by id operation
+5.Write Unit test for get employee by email operation(custome query)
+※Basically, we will write a custom query and then will write the unit test case to test the custom query
+6.Write Unit test for update employee operation
+7.Write Unit test for delete employee operation
+8.Write Unit test for custom query using JPQL with index parameters (using @Query annotation)
+※Basically we will define a custom query using JPQL with parameters, and then will write a JUnit test case to test the custom query using JPQL.
+9.Write Unit test for custom Native query with JPQL with Named parameters(using @Query annotation)
+10.Write Unit test for custom Native query with with index parameters(using @Query annotation)
+11.Write Unit test for custom Native query with Named parameters(using @Query annotation)
+12.We will Refactor All the unit tests to use @BeforeEach annotation. 
+※You will see how to use @BeforeEach annotation to optimize the unit test cases.
+
+BDD style to write the unit test cases(Behavior-Driven Development)
+-------------------------------------------------------------------
+
+BDD style provides good syntax which is human readable(Developer or QA).(Give/When/Then)
+.Give - precondition or setup
+.When - action or behaviour we will test
+.Then - verify the output
+※Basically, we will write the asset statments to verify the result of revenge action.
+
+

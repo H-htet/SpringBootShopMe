@@ -1,0 +1,41 @@
+Create Spring Data JPA Repository for JPA Entity
+------------------------------------------------
+
+package net.javaguides.springboot.repository;
+
+import net.javaguides.springboot.model.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+//Create Spring Data JPA Repository for JPA Entity
+//We have created EmployeeRepository interface as followings.
+// In order to make this spring data jpa repository, we need to extend this interface to a JpaRepository interface.
+// IN JpaRepository has two parameters(type of Entity, type of id), so need to pass two parameters
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {// in there Long is ID of Employee Entity and this is generic,
+                                                                           // so we have to provide a wrapper class.
+                                                                           // That is why we gave Long as a wrapper class even though id in EmployeeEntity class// usually annotate this interface with @Repository annotation
+//But we don't have to add @Repository annotation here because we have a SimpleJpaRepository class,
+//Spring Data JPA module provides SimpleJpaRepository Class, which implements JpaRepository.
+//SimpleJpaRepository class implements JpaRepository interface
+//and simpleJpaRepository class internally annotated with @Repository annotation that is why, we don't need to add again our interface with @Repository annotation
+//click shift twice to find classes, and search by typing simpleJpaRepository. it implement JpaRepositoryImplementation. JpaRepositoryImplementation extends JpaRepository
+//it Means JpaRepository interface has an indirect implementation with SimpleJpaRepository
+//it Means SimpleJpaRepository is the implementation class of JpaRepository interface and SimpleJpaRepository class internally annotated with @Repository annotation
+//that is the reason we don't have to annotate our interface with @Repository annotation.
+//One more very important point is all the methods defined in SimpleJpaRepository are by default transactional because you can see this class is annotated with @Transactional annotation.
+    //all the public methods in this class are annotated with @Transactional annotation.
+    //That is the reason all the methods defined SimpleJpaRepository are by default transactional.
+    //We don't have to again make these methods transactional. It means that in a service class, we don't have to add a @Transactional annotation to make these methods as a transactional
+    //because they have already transactional right because you can see these methods are annotated with @Transactional annotation.
+
+
+    //Recap what we understand in this lecture.
+    //1.we are created an EmployeeRepository interface.
+    //2.EmployeeRepository interface which extends JpaRepository interface.
+    //3.JpaRepository Interface takes two parameters, first is type of entity and second is type of primary key.
+    //4.JpaRepository has an implementation class that is a SimpleJpaRepository.
+    //5.SimpleJpaRepository internally provide @Repository annotation
+    //6.That is why, we don't need to annotate our EmployeeRepository interface with @Repository annotation
+    //7.One more really important point is all the methods in the JpaRepository are default as transactional.
+    //8.So, don't need to add @Transactional annotation in the service class according to having all methods as default in JpaRepository
+
+}

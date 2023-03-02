@@ -1,0 +1,38 @@
+Understand Application Architecture
+-----------------------------------
+
+Logical Architecture of Ecommerce Application
+---------------------------------------------
+
+Application Architecture(logical Layers)
+
+1.View Layer (Thymeleaf, HTML...) //User Layer or client will invoke below 2
+eg; products.html, product_form.html
+
+2.Controller Layer (MVC, REST) //SpringMVC Controller layer or REST controller layer
+eg; ProductController
+
+3.Service (business classs)
+eg; ProductService
+
+4.Repository(Entities & Interfaces) //Entities and Repository Interfaces
+eg; Product, ProductRepisitory
+
+5.Spring Data JPA //it will use below 6
+
+6.Hibernate framework//it will use below 7 to communicate with below 8 Database
+
+7.JDBC Driver
+
+8.Database
+
+Client request will come to the Controller layer's responsibily is to handle for the Client's Request
+
+
+※※※※　We will write this Project with Above 4 Layer is View,Controller,Services and Reposirory
+
+
+
+
+
+

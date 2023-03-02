@@ -1,0 +1,43 @@
+1. Open Spring tool suite 4 IDE
+2. Window Menu->Perspective->Open Perspective->Other->Git->Open
+3. Git Repositories pane->click "Clone a Git repository"
+4. URI : https://github.com/namhaminh/shopme
+   User :gmail
+   PATPassw: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
+   Next->check master branch
+   Directory : /Users/htethtethtun/Java/STS4/ShopmeReferenceProject/shopme
+   check: Import all existing Eclipse projects after clone finishes
+   Click Finish
+
+wait now project is cloning
+and you will see copy project shopme
+
+shopme->Tags->select "InitialSetup 5c5d863 initial setup" and switch with java perspective by clicking right corner java perspective icon 
+and you can see project appear
+
+.select ShopmeCommon
+.File->Import->General->Projects from Folder or Archive->NEXT->FINISH
+you will see ShopmeCommon project outside of shopme clone project.
+.select ShopmeWebParent
+.File->Import->General->Projects from Folder or Archive->NEXT->FINISH
+you will see ShopmeWebParent project including ShopmeBackend and ShopmeFrontEnd project outside of shopme clone project.
+
+.run shopme root project with maven install. You will see as following: All project is success
+
+[[1;34mINFO[m] [1mReactor Summary for ShopmeProject 0.0.1-SNAPSHOT:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] ShopmeCommon ....................................... [1;32mSUCCESS[m [  8.834 s]
+[[1;34mINFO[m] ShopmeWebParent .................................... [1;32mSUCCESS[m [  0.039 s]
+[[1;34mINFO[m] ShopmeBackEnd ...................................... [1;32mSUCCESS[m [ 13.491 s]
+[[1;34mINFO[m] ShopmeFrontEnd ..................................... [1;32mSUCCESS[m [  2.529 s]
+[[1;34mINFO[m] ShopmeProject ...................................... [1;32mSUCCESS[m [  0.182 s]
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  25.678 s
+[[1;34mINFO[m] Finished at: 2023-02-11T19:40:34+09:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+
+
+
+

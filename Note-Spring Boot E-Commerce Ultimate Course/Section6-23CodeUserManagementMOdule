@@ -1,0 +1,45 @@
+Understand Requirement of User Management Module
+------------------------------------------------
+
+Admin user can manage Users like below
+1.create new user
+2.update Existing user
+3.Update details
+4.Enable/Disable user
+5.List Users
+6.Sort Users
+7.Filter/Search Users with specifice keyword
+8.Use Pagination in case there are many users.
+9.delete user
+10.Export Users Info
+11.Export to Excel
+12.Export to PDF
+13.Export to CSV
+
+Aboue are all functionalities of the user management module, which we need to implement in this section.
+
+
+
+User Module -> Understand Requirement
+-------------------------------------
+
+.Role Information (Name, Description)
+.User Information (Email,First Name,Last Name,Password,Photos, Enabled, Roles-One or more roles)
+.Fixed roles*****
+1.Admin           - management everything
+2.Salesperson     - manage product price, customers, shipping, orders and sales report
+3.Editor          - manage categories, brands, products, articles and menus
+4.Shipper         - view products, view orders and update order status
+5.Assistant       - manage questions and reviews
+
+
+User Module ->User Interface 
+-----------------------------
+
+1.Manage Users UI
+2.Manage Users/Create New User Form
+3.Manage Users/Edit User(ID:1)
+4.Manage Users UI with enable user ID message above table 
+5.Delete Confirmation
+
+

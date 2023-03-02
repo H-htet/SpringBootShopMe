@@ -1,0 +1,70 @@
+We will deep dive into Spring Boot starter test dependency. We will see what dependency contain internally.
+---------------------------------------------------------------------------------------
+
+.Spring Boot starter test dependency is a primary dependency for springboot applications.
+It holds all the necessary elements(dependencies) required for the testing.
+.This starter includes:
+1.Spring-specific dependencies
+2.Dependencies for auto-configuration
+3.Set of testing libraries - JUnit, Mockito, Hamcrest, AssertJ, JSONassert, and JsonPath
+These are well-known testing libraries 
+and whenever we write the JUnit for our Java application, we have to manually add all these, you know, testing libraries.
+But in case our spring boot application, spring boot team provides Spring boot starter test dependency. This dependency internally include all these popular testing libraries.
+※ We don't have to add these dependencies manually. Spring Boot Starter test dependency internally provides these dependencies as transitive dependencies.
+4.We can use Spring Boot starter test dependency to write JUnit test cases, integration tests, and a lot of stuff.
+4.We don't need to update the versions of all the dependencies (JUnit, Mockito, Hamcrest, AssertJ, JSONassert, and JsonPath) manually, when using this spring boot starter test dependency. 
+5.The Spring Boot parent POM handles all dependency versions, and the Spring Boot team ensures the different testing dependencies work properly together.
+So, there is a module that is Spring boot parent pom dependency.
+6.click spring-boot-starter-test of artifactId, you can able to internally provided spring specific dependencies, spring auto configuration dependency, setup testing libraries such as JUnit, Mockito, Hamcrest, AssertJ, JSONassert, and JsonPath
+.spring specific dependencies is like following:
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-test</artifactId>
+    <version>2.6.8</version>
+    <scope>compile</scope>
+</dependency>
+.spring auto configuration dependency is like following:
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-test-autoconfigure</artifactId>
+    <version>2.6.8</version>
+    <scope>compile</scope>
+</dependency>
+.below are a set of testing libraries
+<dependency>
+    <groupId>com.jayway.jsonpath</groupId>
+    <artifactId>json-path</artifactId>
+    <version>2.6.0</version>
+    <scope>compile</scope>
+</dependency>
+<dependency>
+    <groupId>jakarta.xml.bind</groupId>
+    <artifactId>jakarta.xml.bind-api</artifactId>
+    <version>2.3.3</version>
+    <scope>compile</scope>
+</dependency>
+<dependency>
+    <groupId>org.assertj</groupId>
+    <artifactId>assertj-core</artifactId>
+    <version>3.21.0</version>
+    <scope>compile</scope>
+</dependency>
+
+and others hamcrest, junit,mockito, and as below spring specific dependencies
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>5.3.13</version>
+    <scope>compile</scope>
+</dependency>
+
+and so on..
+and in pom file, spring-boot-starter-test-parent dependency have .
+that parent dependency manage all the versions of the dependencies in the pom.xml and transitive dependencies of all these dependencies.
+we don't have to update the versions of this dependency
+
+
+
+
+

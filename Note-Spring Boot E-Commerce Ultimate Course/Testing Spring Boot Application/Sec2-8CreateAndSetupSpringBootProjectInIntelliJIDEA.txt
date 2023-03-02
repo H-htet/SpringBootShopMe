@@ -1,0 +1,104 @@
+Create and Setup Spring Boot Project in IntelliJ IDEA
+-----------------------------------------------------
+
+.Open Browser
+.type start.spring.io, this will bring spring initializer
+.spring initializer is a website or a web tool that we can use to quickly create a spring based applications
+.Next, fill up the Spring Boot project information over here
+.And then, we will generate this project as a zip file
+.So here we have different types of project
+.We will use Maven, therefore, select Maven
+.And There will have 3 types of JVM languages Java, Kotlin, Groovy, select Java
+.Select Spring Boot 3.0.0(well remember Spring Boot recommend to use stable and latest version of Spring Boot. 
+So, let's keep Spring Boot 3.0.0 here.)
+.Next, fill up project metadata.
+Group : net.javaguides  (but you can use any that you want)
+artifacel : spring-boot-testing
+name  : spring-boot-testing
+Description : Spring Boot unit testing and integration testing
+Package name : net.javaguides.springboot
+Packaging  : jar
+Java : 17 (whenever you choose Spring boot 3, have to use java version 17 or later because springboot 3 requires minimum version 17)
+.Add Dependencies, and type Web, We will use spring web dependency to build the restAPIs.　So, select Spring Web　Dependency.
+※In this course, we will build rest APIs and will test it both unit test and integration test. That is why, we use Spring web dependency.
+※Spring Web build web, including RESTful, applications using Spring MVC. Spring Web dependency うse Apaches Tomcat as the default embedded container.
+。Add Next Dependencies. type Spring Data JPA and Choose　Spring Data JPA dependency to develop the repository layer or a DAO year.
+And spring data JPA produces a lot of boilerplate code that is required to develop the repository layer or DAO year.
+And spring data JPA Internal uses hibernate as a JPA provider.
+Well, in this course we will do unit test the repository layer that is why we will use Spring Data JPS to develop the repository layer.
+.Add Next new Dependencies. Type Lombok. Select Lombok Dependencies.
+Lombok is a Java annotation library, which helps to reduce a boilerplate code
+.Next, we will use H2 in-memory database. 
+.So, Add Dependencies. Type h2 and choose H2 database.
+As mentioned earlier, we are going to use @SpringDataTest annotation to test the repository and that @SpringDataTest annotation
+uses h2 in-memory database to store and retrieve the data. That is the reason why Sir want to use h2 in-memory database.
+※Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small(2mb) footprint.
+Supports embedded and server modes as well as a Browser based console application.
+.You might be wondering Why we don't use MySQL database.
+Because we will use MySQL database in case of integration testing.
+In integration testing, we will test a complete module.
+So, in integration testing, we will test a complete flow like controller to service, service to repository and then database.
+So, in order to test a complete flow, we're going to use a real database that is MySQL database.
+But for unit testing, we can rely h2 in-memory database. 
+That is why, now we are not using to add MySQL dependency. We will add MySQL dependency when we do integration testing.
+.One more point is you might be wondering why not adding any JUnit dependencies.
+Whenever we create a Spring Boot Application using Spring Initialzr, Spring Initializr will automatically add Spring Boot test starter dependency.
+For example, if you click explore option button, and if you go pom.xml file and just go to dependencies section and you can see
+
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+</dependency>
+
+So, default spring initialzr will add this Spring Boot starter test dependency.
+We don't need to add any testing related dependency to test Spring Boot application.
+And this spring boot starter test dependency will provide all the required testing dependencies to unit test or integration test our Spring Boot Application.
+Close button.
+.Next click on Generate Button to generate this Spring Boot applicaion as zip file and download
+.Next Open this zip file in a folder 
+.And extract this zip file
+.And import this spring-boot-testing applicaion IDEA.
+.And Open IntelliJ IDEA , and in there will have a couple of option like New Project, Open, Get from VCS
+.We will import the existing Maven project in an IntelliJ idea, therefore, click "Open" and go to project path and open it.
+expand src->main->Java->net.javaguides.springboot(base package)->SpringBootTestingApplication->run it to make sure that we have successfully imported our project in an IntelliJ idea.
+->click enable link from alert box. This will enable Lombok plugin in our IntelliJ idea.
+.And notice in console log, our spring boot application is successfully running an embedded Tomcat Server on Port 8080 and use Hikari Data Source as default
+And there, you can see SQL hibernate dialect that is H2Dialect (HHH000400: Using dialect: org.hibernate.dialect.H2Dialect)
+That means we have added h2 library or dependency to our project that is why hibernate is using H2Dialect.
+.spring boot starter test dependency behind the scene will provide all the required testing libraries to write test both unit test and integration test.
+
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.2)
+
+2023-02-18T16:43:51.366+09:00  INFO 3834 --- [           main] n.j.s.SpringBootTestingApplication       : Starting SpringBootTestingApplication using Java 19.0.2 with PID 3834 (/Users/htethtethtun/Java/UnitTest-IntegrationTest/Test Source Code Me/spring-boot-testing/target/classes started by htethtethtun in /Users/htethtethtun/Java/UnitTest-IntegrationTest/Test Source Code Me/spring-boot-testing)
+2023-02-18T16:43:51.377+09:00  INFO 3834 --- [           main] n.j.s.SpringBootTestingApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-18T16:43:52.202+09:00  INFO 3834 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-18T16:43:52.223+09:00  INFO 3834 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 0 JPA repository interfaces.
+2023-02-18T16:43:52.910+09:00  INFO 3834 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-18T16:43:52.918+09:00  INFO 3834 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-18T16:43:52.918+09:00  INFO 3834 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-02-18T16:43:53.039+09:00  INFO 3834 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-18T16:43:53.042+09:00  INFO 3834 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1568 ms
+2023-02-18T16:43:53.213+09:00  INFO 3834 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-02-18T16:43:53.369+09:00  INFO 3834 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:82edf292-c54d-4368-8836-1ec390fca647 user=SA
+2023-02-18T16:43:53.370+09:00  INFO 3834 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-02-18T16:43:53.436+09:00  INFO 3834 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-02-18T16:43:53.467+09:00  INFO 3834 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-02-18T16:43:53.613+09:00  WARN 3834 --- [           main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-02-18T16:43:53.788+09:00  INFO 3834 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-02-18T16:43:53.976+09:00  INFO 3834 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-02-18T16:43:53.986+09:00  INFO 3834 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-18T16:43:54.089+09:00  WARN 3834 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-18T16:43:54.584+09:00  INFO 3834 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-18T16:43:54.597+09:00  INFO 3834 --- [           main] n.j.s.SpringBootTestingApplication       : Started SpringBootTestingApplication in 3.738 seconds (process running for 4.621)
+
+
+

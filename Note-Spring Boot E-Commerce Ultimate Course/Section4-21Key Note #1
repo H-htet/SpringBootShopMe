@@ -1,0 +1,18 @@
+Code Admin Home Page
+
+Key Notes:
+
+.Use Bootstrap & jQuery via WebJars dependencies
+.Add SpringDevTools for the project > automatic restart
+.put static resources(eg;images) under src/main/resources/static
+.Use Thymeleaf syntax for URLs:
+<img th:src="@{/images/logo.png}" />
+<a th:href="@{/users}">Users</a>
+
+
+
+
+
+
+
+

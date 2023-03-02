@@ -1,0 +1,228 @@
+Package Structure for Spring Boot Application and Create JPA Entity
+-------------------------------------------------------------------
+.In model package, will keep all JPA entities 
+main base package(net.javaguides.springboot)->rightclick->choose package->package name(model)
+.In repository package, will keep all Spring data JPA repositories
+main base package(net.javaguides.springboot)->rightclick->choose package->package name(repository)
+.In service package, will keep all the service classes.
+main base package(net.javaguides.springboot)->rightclick->choose package->package name(service)
+.In exception package, will keep all the custom exception that we create for our spring boot
+main base package(net.javaguides.springboot)->rightclick->choose package->package name(exception)
+.In controller package, will keep all our spring MVC controllers.
+main base package(net.javaguides.springboot)->rightclick->choose package->package name(controller)
+
+Create JPA Entity and Valitate Hibernate
+----------------------------------------
+
+package net.javaguides.springboot.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+@Setter//use a Lombok annotations to generate a getter setter methods and constructor for this class.
+@Getter//use a Lombok annotations to generate a getter setter methods and constructor for this class.
+@AllArgsConstructor//use @AllArgsConstructor annotation to generate a parameterized constructor for this Employee class.
+@NoArgsConstructor//use @NoArgsConstructor to create a default constructor
+@Builder//it is important to use @Builder Lombok annotation to create Builder pattern/or object for Employee class.
+@Entity//use JPA annotation @Entity to make this Employee Class(java class) as a JPA entity
+@Table(name = "employees")//use @Table annotation along with that entity annotation to provide a table details.For eg; we can use name attributes to provide a table name. Give a table name employees.
+                          //And can specify schema name @Table(name = "employees", schema = "EMS") for this table.
+                          //But we will specify schema name in application.properties file
+public class Employee {
+    @Id//define Primary key for JPA Entity with @Id annotation from Jakarta Persistence package
+    @GeneratedValue//use to define the primary key generation strategy and it has strategy attribute/use identity as a primary key generation strategy.
+    private long id;//instance variables
+    @Column(name = "first_name", nullable = false)//use @Column annotation to define column details and give column name and make this column as not null using nullable=false
+    private String firstName;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+    @Column(nullable = false)
+    private String email;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+}
+
+//Now, We have created JPA Entity.
+//Verify whether Hibernate create the Employees table in the database or not.
+//add property "spring.jpa.show-sql=true", this attribute will basically show the SQL statement in the console.
+//and run from spring boot main entry point class and you will see hibernate log statement from console basically, will drop the table if already exist and will create new table.
+//it means that we have successfully created the Employee JPA entity and we have tested whether Hibernate create Employee table in the database or not. will see in console as following
+
+/*2023-02-19T15:10:53.147+09:00  INFO 2043 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+        Hibernate: drop table if exists employees cascade
+        Hibernate: drop sequence if exists employees_seq
+        Hibernate: create sequence employees_seq start with 1 increment by 50
+        Hibernate: create table employees (id bigint not null, email varchar(255) not null, first_name varchar(255) not null, last_name varchar(255) not null, primary key (id))
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IntelliJ Shotcut
+-----------------
+option+←　= fix error 
+shift+F6  = refactor/rename , type new name + return(←)
+⌘   /  = for single line comments (  //...  )
+  ⌥   ⌘   /  = for block comments (  /*...*/  )
+Press   ⌘   1   to open the Project tool window and switch focus to it.
+Expand code selection
+Press   ⌥   ↑   to expand code selection. Each time you press   ⌥   ↑  , the selection expands to other areas of code.
+For example, the selection expands from a method name to the expression calling this method, then to the whole statement, then to the containing block, and so on.
+Search Everywhere
+Press   Shift   twice to search for files, actions, symbols, UI elements, Git branches and comments across your project. Pressing double   Shift   again, will extend the search to non-project items.
+Use tabs or direct shortcuts   ⌘   O   for classes,   ⇧   ⌘   O   for files,   ⌥   ⌘   O   for symbols, and   ⇧   ⌘   A   for actions to narrow your search results.
+Preview search results
+You can use the Preview area of the Find in Files dialog (  ⇧   ⌘   F  ) for quicker search without leaving the dialog. The Preview dialog displays the first 100 results. 
+Show usages
+You can view the list of all usages of a class, method or variable across the whole project, and quickly navigate to the selected item. Place the caret at a symbol and press   ⌥   ⌘   F7   (Edit | Find Usages | Show Usages).
+Navigate to implementation
+To navigate to the implementations of an abstract method, position the caret at its usage or its name in the declaration and press   ⌥   ⌘   B  .
+Quick Definition
+Press   ⌥   ␣   (View | Quick Definition) to preview the definition or content of the symbol at the caret, without opening it in a separate editor tab.
+For REST controllers, use the dedicated Endpoints tool window to list all endpoints with their methods and URLs. The tool window also lets you quickly create an HTTP request to the selected endpoint and generate an OpenAPI Specification.
+View recent files
+Press   ⌘   E   (View | Recent Files) to view the list of recently opened files.
+Duplicate a code block or a line
+Press   ⌘   D   in the editor to duplicate the selected code block, or the current line when no block is selected.
+Postfix code completion
+Postfix code completion is applied from right to left to avoid backward caret jumps when coding. Type a dot   .   after the code fragment that you want to change and select the desired option.
+To see the suggestion list with postfix templates, you can also press   ⌘   J  .
+Code completion
+When using code completion, you can accept the currently highlighted selection in the popup list by pressing   ⇥ Tab  .
+Unlike accepting with   ↩ Return  , the selected name will overwrite the rest of the name to the right of the caret. This can be especially useful for replacing one method or variable name with another. 
+Quick code documentation
+To quickly see the documentation for a class or method at the caret, press   F1   (View | Quick Documentation).
+Select In
+To quickly select the currently edited element (a class, file, method, or field) in another view, press   ⌥   F1   or call Navigate | Select In.
+Move statements up and down
+The Code | Move Statement Up/Down actions are useful for reorganizing code lines, for example for bringing a variable declaration closer to the variable usage.
+Select a code fragment and press   ⇧   ⌘   ↑   or   ⇧   ⌘   ↓  .
+When nothing is selected in the editor, the line at the caret position will be moved.
+Show file structure
+You can quickly navigate within the current file with   ⌘   F12   (Navigate | File Structure).
+File structure shows the list of members of the current class. To navigate to an element, select it and press   ↩ Return   or   ⌘   ↓  .
+To easily locate an item in the list, start typing its name.
+Local History
+Local History lets you track all changes to files, classes, methods, or any code fragments and roll back to any stable point if necessary. To view local history, from the main menu, select File | Current File | Show History.
+Extract Variable refactoring
+The Extract Variable refactoring wraps a selected expression into a variable. It adds a new variable declaration and uses the expression as an initializer. Select an expression and press   ⌥   ⌘   V   (Refactor | Extract/Introduce | Variable).
+Camel case in code completion
+You can narrow down a list of code completion suggestions by using camel case prefixes.
+Spring endpoint actions in the editor
+For endpoints in Spring, you can click   to find usages, to quickly generate an HTTP request, to show all endpoints in the dedicated tool window, or to create an OpenAPI specification file.
+Create code constructs with completion
+You can create code constructs using statement completion. Start typing a method declaration, a method call or a statement such as   if  ,   do -while  ,   try -catch  , or   return  . Press   ⇧   ⌘   ↩ Return   to complete the statement into a syntactically correct construct.
+Evaluate expression
+You can execute expressions or reassign values for variables while your script is stopped by a breakpoint. The Evaluate Expression functionality helps you to obtain additional details about the program state or test various scenarios at runtime.
+•  If the expression is present in the code, hold   Alt   (on Windows and Linux) or   ⌥   (on macOS) and click it. If you want to evaluate a specific code fragment, select it before clicking. 
+Version Control
+IntelliJ IDEA provides out-of-the-box integration with the following version control systems: Git, Mercurial, Subversion, and Perforce.
+Version your application to collaborate on it, as well as to eliminate the risks of storing all of your codebase locally. Press   ⌘   9   to view the history of the changes in the project or press   ⌘   K   to send your local changes to the repository.
+To reformat code according to the current code style settings, select Code | Reformat Code from the main menu or press   ⌥   ⌘   L  .
+Press   ⌥   F7   to quickly locate all occurrences of code referencing the symbol at the caret, no matter if the symbol is a part of a class, method, field, parameter, or another statement.
+Override methods
+You can easily override methods of the base class by pressing   ⌃   O   (Code | Override Methods).
+To implement methods of the interfaces (or of the abstract base class) that the current class implements, press   ⌃   I   (Code | Implement Methods).
+Code generation
+IntelliJ IDEA can generate getter and setter methods for fields in your class. With the caret inside the class, press   ⌘   N   (Code | Generate).
+Use live templates to insert frequent code constructs. 
+ 
+For example, type   psvm   and press   Tab   to insert the   main()   method declaration template, then type   sout   to insert a print statement.
+Surround code fragments
+You can quickly wrap a code block in useful constructs. Select it in the editor and press   ⌥   ⌘   T   (Code | Surround With).
+The list of available options or wrappers is context-sensitive and depends on the language. 
+Paste from the clipboard history
+Press   ⇧   ⌘   V   to select the text fragment that you have previously copied to the clipboard.
+Change focus in tool windows
+  ⎋ Esc   in any tool window moves the focus to the editor.
+  ⇧   ⎋ Esc   moves the focus to the editor and hides the current or the last active tool window.
+  F12   moves the focus from the editor to the last focused tool window.
+Debugger
+If you want to log program state during debugging, use non-suspending breakpoints. Select the expression that you want to log, hold   Shift  , and click the gutter at the line where the expression should be logged.
+In the example,   sent.size()   will be logged upon reaching line 24.
+Switch scheme
+You can apply a different code style, coloring scheme, or keymap with a single keystroke right from the editor. Press   ⌃   `   (View | Quick Switch Scheme) to specify the scheme you want to switch to.
+Navigate to recent locations
+Press   ⇧   ⌘   E   to get a list of recently viewed or changed code fragments.
+You can inject Spring entities, such as bean names or Spring EL expressions. Press   ⌥   ↩ Return   and select Inject language or reference | Spring EL.
+Type-Matching completion
+Invoking Type-Matching code completion (  ⌃   ⇧   ␣  ) twice will search for chained expressions of the expected type.
+Code completion
+Code completion suggests the choices that are reachable from the current caret position as you type. Press   ⌃   ␣   twice to also see inaccessible classes and members.
+Inspect code
+Use Code | Inspect Code to run code analysis for the whole project or a custom scope and examine the results in a separate window.
+View code reference information
+You can use   F1   (View | Quick Documentation),   ⌘   P   (View | Parameter Info),   ⌘   B   (Navigate | Declaration), and similar shortcuts not only in the editor but also in the suggestions list while using code completion.
+Delete a line
+Press   ⌘   ⌫ Del   in the editor to delete the whole line at the caret. 
+Compare archives
+To compare two   .jar  ,   .zip   or   .phar   archives or even files inside an archive, select them in the Project tool window and press   ⌘   D  .
+The Compare Archives feature is integrated with the Java bytecode decompiler and allows you to see what exactly has changed between two different versions of a library.
+Highlight usages within a file
+Press   ⇧   ⌘   F7   (Edit | Find Usages | Highlight Usages in File) to quickly highlight usages of a certain variable in the current file.
+Press   ⌘   G   and   ⇧   ⌘   G   to navigate through the highlighted usages. Press   ⎋ Esc   to remove highlighting.
+Scratch files
+Scratch files are temporary files that let you experiment and prototype in the editor, without creating any project files.
+To create a scratch file, press   ⇧   ⌘   N  , and then select the language to use.
+Code completion
+To quickly complete a method call of a static method located anywhere in your project, a library, or a JDK, enter a prefix and press   ⌃   ␣   twice. You can press   ⌥   ↩ Return   to import the selected method.
+Quick Definition
+You can invoke the Quick Definition Viewer (  ⌥   ␣  ) for items in code completion lists and the class, file, or symbol navigation commands.
+Copy a class
+Use Refactor | Copy Class to create a class which is a copy of the selected class.
+This is useful when you need to create a class similar to an existing one, and it's not feasible to put shared functionality in a common superclass.
+
+Fix a Javadoc
+If a method signature has changed, IntelliJ IDEA highlights the documentation comment tags that ran out of sync and suggests a quick-fix:
+See available live templates
+If you do not remember a live template abbreviation, press   ⌘   J   to see a list of suggestions for the current context. 
+Search for Spring endpoints
+In a Spring application, you can find an endpoint using the Search Everywhere dialog. Press   Shift   twice and type   /url   to filter by endpoint URLs. For your convenience, there is also the Go To URL Mapping action mapped to   ⇧   ⌘   \  .
+Type-Matching code completion
+The type-matching code completion analyzes the expected type of the whole expression and helps to find methods and variables that are applicable in the current context. It works after the   return   keyword, in an assignment, in the argument list of a method call, and other places. Press   ⌃   ⇧   ␣   (Code | Code Completion | Type-Matching) to get the completion list filtered.
+View Spring bean documentation
+You can access Spring bean documentation directly from the editor. Place the caret at a bean, press   ⌥   F1  , and select Spring Beans. The Spring tool window opens showing you all available information.
+Compare with clipboard
+To compare active editor with the clipboard contents, right-click anywhere in the editor and choose Compare with Clipboard from the context menu.
+Verify regular expressions
+To verify that your regular expression is correct, place the caret within the expression you want to check, press   ⌥   ↩ Return  , and select Check RegExp.
+In the popup, type a sample string that should match your regular expression. The   icon shows that the match occurred.
+Type-Matching completion
+When you need to cast an expression value to the required type, use Type-Matching completion. For example, type
+and press   ⌃   ⇧   ␣   to see what happens.
+Breakpoints menu
+Right-click a breakpoint marker in the gutter to quickly enable/disable the breakpoint or adjust its properties.
+Type-Matching code completion
+Use the Type-Matching completion   ⌃   ⇧   ␣   after the   new   keyword to instantiate an object of the expected type.
+
+Horizontal scroll
+To scroll a file horizontally, turn the mouse wheel while keeping   Shift   pressed.
+Highlight statements that may throw exceptions
+You can view all statements within the method where certain exceptions can be thrown. Place the caret at the   throws   statement and press   ⇧   ⌘   F7  . 
+
+Complete variable names
+Code completion can suggest a name for a variable when you declare it. For example, start typing   private FileOutputStream  . The IDE will show you a list with suggestions. 
+
+Edit regular expressions
+You can edit a regular expression in your code using a dedicated editor.
+Start typing a regular expression, press   ⌥   ↩ Return   and click Edit RegExp Fragment. The regular expression opens in a separate tab in the editor where you can type backslashes as is.
+All changes are synchronized with the original regular expression, and escape characters are presented automatically.
+
+Create a UML diagram
+Press   ⌥   ⇧   ⌘   U   to open a UML class diagram in a new editor tab.
+

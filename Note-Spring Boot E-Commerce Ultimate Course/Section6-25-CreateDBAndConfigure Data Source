@@ -1,0 +1,75 @@
+Create Database and configure Data Source
+-----------------------------------------
+
+1.MysqlWorkbench ->Click Schema->Name(shopmedb)->Apply->Apply
+Schema->shopmedb->Tables->Views->Stored Procedures->Functions
+
+2.Open Maven project file of ShopemeWebParent and declare a new dependency for Spring Data JPA.
+And then you can check ShopmeBackEnd->Maven Dependencies->spring-boot-starter-data-jpa-3.0.2.jar
+
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<scope>test</scope>
+</dependency>
+
+3.configure some Datasource Properties for Spring Boot Application 
+- so it will be able to connect to MySQL database server.
+
+Spring Data Source properties:
+.spring.datasource.url
+.spring.datasource.username
+.spring.datasource.password
+
+In ShopmeBackEnd->src/main/resources/application.properties,
+put below:
+spring.datasource.url=jdbc:mysql://localhost:3306/shopmedb
+spring.datasource.username=root
+spring.datasource.password=root1234
+
+4.And we need to specified JPA/Hibernate Properties:
+.spring.jpa.hibernate.ddl-auto=update
+.spring.jpa.show-sql=true
+.spring.jpa.properties.hibernate.format_sql=true
+.spring.jpa.properties.hibernate.dialect=<MySQL Dialect Class>
+
+ddl-auto property is to tell Hibernate framework to create the tables in the database from the entity classes.
+show-sql property is to show the SQL statements in the console.
+properties.hibernate.format_sql is to tell Hibernate framework to make the SQL statement more readable in the console.
+dialect is specified that Hibernate will be able to create the tables properly.
+
+
+In ShopmeBackEnd->src/main/resources/application.properties,
+Put below to specify the additional properties for JPA and Hibernate.
+
+ddl-auto is to instruct Hibernate framework to create tables, update tables in the database from entity classes.
+show-sql property is to show the SQL statements in the console.
+properties.hibernate.format_sql is to tell Hibernate framework to make the SQL statement more readable in the console.
+database dialect class for MySQL, you can look into the Hibernate jar file under the Maven Dependencies here
+you can see the JAR file for Hibernate core and look into the package org.hibernate.dialect.
+Here.. you can see various dialect classes. 
+Here.. and for MySQL database here.
+Here.. we will use the class MySQL8Dialect because the MySQL database server version is version 8.
+
+.spring.jpa.properties.hibernate.dialect=<MySQL Dialect Class>
+.spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+
+
+
+
+
+
+
+
+
+
+
+
+

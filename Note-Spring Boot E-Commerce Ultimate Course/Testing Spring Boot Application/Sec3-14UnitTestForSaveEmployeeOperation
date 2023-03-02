@@ -1,0 +1,52 @@
+package net.javaguides.springboot.repository;
+
+import net.javaguides.springboot.model.Employee;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+@DataJpaTest //Spring Boot provides the @DataJpaTest annotation to test the persistence layer components that will autoconfigure in-memory embedded database for testing purposes.
+public class EmployeeRepositoryTests {
+    //We need to inject employee repository to test employee repository methods. To inject dependency, spring provides @Autowired annotation
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    //JUnit test for save employee operation
+    //in order to write JUnit test case in Java, we need to create a method and it should be public and return type is void.
+    //In there we will use BDD style naming convention for Unit Test, So, give syntax name given_when_then
+    //we will give employee object as a precondition.
+    @DisplayName("JUnit test for save employee operation")
+    @Test //if you don't annotate method with @Test annotation, JUnit Framework won't be able to identity this method as a JUnit test case.
+    public void givenEmployeeObject_whenSave_thenReturnSavedEmployee(){
+        //in there, write complete logic
+        //given - precondition or setup(before testing anything, we provide a precondition setup)
+        Employee employee = Employee.builder() //use builder pattern to create employee object and need to pass to the save method
+                .firstName("Htet")
+                .lastName("Htet")
+                .email("htet@gmail.com")
+                .build();// call the build method to build the object.
+        //when - action or behavior that we will test
+        Employee savedEmployee = employeeRepository.save(employee);
+        //then - verify the output(basically, we will use assertions to verify the output)
+        Assertions.assertThat(savedEmployee).isNotNull();// Assertions class provides assertThat method that you can see assetThat method is overload and just choose first one and pass the actual object that is savedEmployee.
+                                                         //and then we need to call the appropriate API, in here we will verify the output as not null
+        Assertions.assertThat(savedEmployee.getId()).isGreaterThan(0);// test whether primary key of employee is greater than zero or not. use by calling getId() methods
+                                                         //when complete the method, we should annotate this method with @Test annotation from junit framework
+    }
+
+}
+
+//One more important things is that when we run JUnit test case, method name givenEmployeeObject_whenSave_thenReturnSavedEmployee() will be displayed
+//if you want to give different name, you can use @DisplayName annotation to give you a different name for your unit test. For eg; use this "JUnit test for save employee operation"
+//if so, whenever you run the JUnit then, that name "JUnit test for save employee operation" will be displayed.
+
+//So, let's test.When just click play button in front of method name, Our JUnit test case will run.
+//you have different options.
+// 1. You can run a whole class it contains JUnit test cases at once,
+// or 2. You can run individual JUnit test case by running methods.
+//if JUnit test case pass, you will see Test Results with green correct symbol. and you can click on that and can be able to verify the output
+//So, we need to verify the output, like whether an employee object saved in a database and an appropriate SQL statement is created by a Hibernate or not
+//And if you can see the console, Hibernate created this SQL statement behind a scene that is employees table and it inserted a record.
+//like this => Hibernate : insert into employees(id, email, first_name, last_name) values (null, ?, ?, ?)

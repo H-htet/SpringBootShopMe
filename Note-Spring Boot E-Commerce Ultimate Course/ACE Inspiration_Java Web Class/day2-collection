@@ -1,0 +1,10 @@
+Useful Collection Framework
+
+1.List(Interface) 
+Interface is extended with two ArrayList and Linkedlist
+2.Set
+3.Map   
+4.Iterator
+
+New->Java Project->Name(collection)
+create class(name ->TestArratList)

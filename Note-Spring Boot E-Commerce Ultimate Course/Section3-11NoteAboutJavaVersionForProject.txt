@@ -1,0 +1,1 @@
+can change java version later in pom.xml file

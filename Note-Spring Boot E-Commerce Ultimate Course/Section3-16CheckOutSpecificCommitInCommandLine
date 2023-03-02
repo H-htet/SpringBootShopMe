@@ -1,0 +1,28 @@
+1.Download a commit xxx.txt file under the Resources of a Lecture
+
+2.Type the commands in the text file:
+.git clone https://github.com/namhaminh/shopme
+
+.git checkout<commit hash>
+
+3.If project is already cloned, just type git checkout command.
+
+4.github->section6-26->Resources->Download by clicking Commit+hash(like this Commit 9724d67d6ece256)
+
+5.you will see this file "Commit+9724d67d6ece256085bbfb5a0a94262b94219125.txt"
+
+6. when open above file, you will see as followings:
+git clone https://github.com/namhaminh/shopme
+git checkout 9724d67d6ece256085bbfb5a0a94262b94219125
+
+7.Go to rootproject directory if you already clone project from github
+
+.cd /Users/htethtethtun/Java/STS4/ShopmeReferenceProject/shopme
+
+.run below command
+git checkout 9724d67d6ece256085bbfb5a0a94262b94219125
+
+.After running above, you will see 
+Role.java file in the below path.
+
+/Users/htethtethtun/Java/STS4/ShopmeReferenceProject/shopme/ShopmeCommon/src/main/java/com/shopme/common/entity

@@ -1,0 +1,27 @@
+Unit Testing
+------------
+.involves the testing of each unit or an individual component of the software application
+.each unit maybe an individual function method, procedure, module, and object
+.the purpose is to validate that each unit of the software code performs as expected
+.As a developer, we have to write unit test to test methods, classes to make sure that whatever the logic or piece of code that we have written is working as expected
+.Once we done unit testing successfully, then our code should be a bug free.
+.In Java, JUnit framework is used for unit testig java application.
+Most of the times one component will depend on other component(s), so while implementing unit tests we should mock the dependencies with the desired behavior using frameworks like Mockito.
+.So,eg; Employee Controller depends on Employee Service, Employee Services depends on Employee Repository,
+.So, whenever we write unit test for employee controller then we have to mock the employee service object
+.In order to mock the dependencies like employee service and employee controller, we have to use a mocking frameworks.
+
+Integration Testing
+-------------------
+.Integration tests focus on integrating different layers of the application. 
+.It means no mocking is involved.
+.It must write for the whole feature like Employee Management including Controller, Service, and Repository. Don't test only the single component like controller. Test integration of all these components.
+For eg; User Management Feature(UserController, UserService, and UserRepository) 
+        Login Feature (LoginRepository, LoginController, LoginService)etc
+We will not mock any object while integration testing. We have to deal with the database.
+.In this course, we will write integration test for employee controller.
+.Whenever we test employee controller, it should talk with a database through these layers employee service and employee repository. We don't mock employee service or employee a repository we will directly store the data into the database.
+And we will directly retrieve data from the database.
+.In the case of integration test, we dont have to use a mocking mechanism or any other mocking frameworks.
+.In the case of unit testing, we have to use Mockito all mocking framework to mock the dependent dependencies.
+

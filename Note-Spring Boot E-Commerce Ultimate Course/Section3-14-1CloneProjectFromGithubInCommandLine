@@ -1,0 +1,53 @@
+Setup Project with github cloning running from command line
+-----------------------------------------
+
+Clone Project from GitHub in Command Line
+-----------------------------------------
+
+.Syntax
+
+git clone --depth 1 --branch <tag_name> <repo_url>
+
+.Clone the project at initial setup stage: 
+
+git clone --depth 1 --branch InitialSetup
+https://github.com/namhaminh/shopme
+
+HTETs-MacBook-Pro:ShopmeReferenceProject htethtethtun$ cd shopme
+HTETs-MacBook-Pro:shopme htethtethtun$ mvn install
+-bash: mvn: command not found
+
+Reactor Summary cannot show to check all project success
+
+if it was successful, go on followings:
+
+cd ShopmeWebParent
+cd ShopmeBackEnd
+dir target
+if run above command ,you can see jar file "ShopmeBackEnd-0.0.1-SNAAPSHOT.jar"
+
+
+cd target
+java -jar ShopmeBackEnd-0.0.1-SNAPSHOT.jar
+
+
+if so, you will see tomcat server start with port 8080
+
+if so, you can localhost:8080/ShopmeAdmin/
+
+and you can run jar of ShopmeFrontEnd
+cd ShopmeFrontEnd
+cd target
+java -jar ShopmeBackEnd-0.0.1-SNAPSHOT.jar
+if so, you can run localhost:8080/Shopme
+
+Exit with ctrl+C
+
+
+
+cd /Users/htethtethtun/Java/STS4/ShopmeReferenceProject/shopme/ShopmeWebParent/ShopmeFrontEnd/target>prompt @$f
+
+@)dir target
+
+can go easily with previous command by using arrow key
+

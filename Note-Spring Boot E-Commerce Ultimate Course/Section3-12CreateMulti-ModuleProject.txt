@@ -1,0 +1,401 @@
+Setup Project
+1.Admin App(Project #1) - Admin's Dependencies
+2.Shopping App(Project #2) - Shopping's Dependencies
+3.Common Code for 1 and 2(Project #3)
+4.Common Dependencies for 1 and 2
+
+Create Multi-Module Maven Project
+---------------------------------
+1     ShopmeProject(pom.xml)               - root project(pom)    //create maven project
+      1.1   ShopmeCommon(pom.xml)          - module 1(jar) ※Common library between backend & frontend    //spring boot project(also called maven project)but our main is for library that is why we dont need class application so delete class file in com.shopme package, and also delete the whole shopme.com package in src/test/java directory
+      1.2   ShopmeWebParent(pom.xml)       - module 2(pom) ※Common dependencies between backend & frontend     //spring boot project(also called maven project)
+            1.2.1 ShopmeBackEnd(pom.xml)   - module 2a(jar)    //spring boot project(also called maven project)
+            1.2.2 ShopmeFrontEnd(pom.xml)  - module 2b(jar)    //spring boot project(also called maven project)
+
+
+Create Project Workspace
+------------------------
+1.Open STS4
+2.select Workspace to "/Users/htethtethtun/Java/STS4/ShopmeEcommerce"
+
+
+Create Root Project
+-------------------
+1.File->New->Maven->Maven Project->give a check (Create a simple project)->Group Id etc
+
+com.shopme
+ShopmeProject
+0.0.1-SNAPSHOT
+pom
+ShopmeProject
+Root project
+Finish
+
+check pom.xml file
+
+Create ShopmeCommon Project
+---------------------------
+
+File->New->Spring Starter Project->
+Name         : ShopmeCommon
+uncheck      : "use dfault location"
+Location     : /Users/htethtethtun/Java/STS4/ShopmeEcommerce/ShopmeProject/ShopmeCommon
+Java Version : 17
+Packaging    : Jar
+Type         : Maven
+Language     : Java
+Group        : com.shopme
+Artifact     : ShopmeCommon
+Version      : 0.0.1-SNAPSHOT
+Description  : common library
+Package      : com.shopme
+
+Next ->Type spring data -> give a check in Spring Data JPA of SQL ->
+NEXT ->Finish
+
+
+.put modules for ShopmeCommon pom file of root project 
+.delete unncessory class file and package
+ShopmeCommon is used for Common library between backend & frontend    
+and it is spring boot project but our main target is used for library that is why we don't need class application so delete class file in com.shopme package(src/main/java), and also delete the whole shopme.com package in src/test/java directory
+
+.delete unnecessary part in ShopmeCommon maven project pom file
+this project is for library So, it is not application project. So, delete as following
+<build>
+      <plugins>
+            <plugin>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+      </plugins>
+</build>
+
+.and delete as following:
+<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+</dependency>
+
+
+Create ShopmeWebParent Project
+------------------------------
+File->New->Spring Starter Project->
+
+location:/Users/htethtethtun/Java/STS4/ShopmeEcommerce/ShopmeProject/ShopmeWebParent
+description:parent spring web project
+Choose "Spring Web" and NEXT and Finish/
+can found a lot of jar files of Maven Dependencies of Sprind Web
+Delete unnecessary part in pom.xml as followings;
+<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+</build>
+
+in root project pom.xml, put as following
+
+  <modules>
+	  <module>ShopmeCommon</module>
+	  <module>ShopmeWebParent</module>
+  </modules>
+
+delete entire package(com.Shopme) of src/main/java
+delete entire package(com.Shopme) of src/test/java
+
+right click on ShopmeWebParent and choose Properties
+->Click Project Natures and remove Java Nature because ShopmeWebParent is root project of ShopmeBackEnd and ShopmeFrontEnd.
+So choose Java and Click Remove
+-> OK -> Apply and close
+
+pom.xml -> put as followings: and unknown packaging error will appear but it is ok. Right Click on ShopmeWebParent -> select Maven -> Update Project -> and check ShopmeWebParent ->click OK-> error will disappear
+<packaging>pom</packaging>
+
+※if error will not disappear, check java version, jre is 17.0.15 but you will use java 19. if so, change java 17 in pom file
+
+
+Create ShopmeBackEnd Project
+----------------------------
+File->New->Spring Boot Starter Project
+ShopmeBackEnd
+uncheck default location and set as following:
+/Users/htethtethtun/Java/STS4/ShopmeEcommerce/ShopmeProject/ShopmeWebParent/ShopmeBackEnd
+JavaVersion 17
+Type Maven
+Packaging Jar
+Language java
+Group com.shopme
+Artifact ShopmeBackEnd
+Package com.shopme
+description :Shopme Admin project
+Next->dont' need choose any dependencies here because it has already declared in parent project.
+
+
+
+
+we need to declare module in parent project as following:
+
+<modules>
+		<module>ShopmeBackEnd</module>
+</modules>
+
+
+copy below from Parent Project to ShopmeBackEnd's pom.xml
+.change from below
+<parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>3.0.2</version>
+      <relativePath/> <!-- lookup parent from repository -->
+</parent>
+
+.to below
+<parent>
+<groupId>com.shopme</groupId>
+<artifactId>ShopmeWebParent</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+</parent>
+
+In parent project groupId and version is already conclued. Therefore, remove it in this ShopmeBackEnd
+
+Remove all dependency tag in ShopmeBackEnd pom.xml because parent project has already included dependencies.
+
+From now you can run ShopmeBackEndApplication.java in src/main/java
+
+remove test class in src/test/java
+
+In spring boot configuration file application.properties,under having src/main/resource
+.write server.port=8080 //spring boot application's default port number is 8080
+.server.servlet.context-path=/ShopmeAdmin   //we can specify port number explicitly
+
+And to use Thymeleaf for this Spring Boot web application, we declare the dependency for Thymeleaf in the parent project here
+add dependency tag in shopme web parent project and change artifactId like following:
+
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+
+.modify ShopmeBackEnd package name to com.shopme.admin
+.create new class by right clicking above package name
+.name : MainController->Finish
+※MainController is Spring MVC's controller class.Therefore, we use it Controller annotation like this @Controller
+
+handler method @GetMapping("/")
+Method with String type , return will be string
+
+package com.shopme.admin;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller //Spring MVC's controller
+public class MainController {
+	
+	@GetMapping("") //first handler method that we handle http get request to the homepage of this app
+	public String viewHomePage() {
+		return "index"; 
+	}
+}
+
+create template folder in src/main/resources
+right click on src/main/resources ->  NEW -> Others->HTML->index.html->choose html5
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopme Admin Control Panel</title>
+</head>
+<body>
+    <h1>Welcome to Shopme Admin Control Panel</h1>
+</body>
+</html>
+
+
+.Boot Dashboard -> local -> select ShopmeBackEnd -> run start
+.you will see server is running with context path /ShopmeAdmin like as following:
+
+/\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+[32m :: Spring Boot :: [39m              [2m (v3.0.2)[0;39m
+
+[2m2023-02-09T10:17:29.761+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mc.shopme.admin.ShopmeBackEndApplication [0;39m [2m:[0;39m Starting ShopmeBackEndApplication using Java 17.0.5 with PID 1572 (/Users/htethtethtun/Java/STS4/ShopmeEcommerce/ShopmeProject/ShopmeWebParent/ShopmeBackEnd/target/classes started by htethtethtun in /Users/htethtethtun/Java/STS4/ShopmeEcommerce/ShopmeProject/ShopmeWebParent/ShopmeBackEnd)
+[2m2023-02-09T10:17:29.766+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mc.shopme.admin.ShopmeBackEndApplication [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+[2m2023-02-09T10:17:30.627+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8080 (http)
+[2m2023-02-09T10:17:30.636+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+[2m2023-02-09T10:17:30.636+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.5]
+[2m2023-02-09T10:17:30.721+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.a.c.c.C.[.[localhost].[/ShopmeAdmin]  [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+[2m2023-02-09T10:17:30.722+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 904 ms
+[2m2023-02-09T10:17:30.907+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.s.b.a.w.s.WelcomePageHandlerMapping   [0;39m [2m:[0;39m Adding welcome page template: index
+[2m2023-02-09T10:17:31.117+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+[2m2023-02-09T10:17:31.131+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[           main][0;39m [36mc.shopme.admin.ShopmeBackEndApplication [0;39m [2m:[0;39m Started ShopmeBackEndApplication in 1.816 seconds (process running for 2.753)
+
+.stop program from Boot Dashboard -> local
+You will see message Shutting down like as following:
+
+00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[n(11)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
+[2m2023-02-09T10:20:12.881+09:00[0;39m [32m INFO[0;39m [35m1572[0;39m [2m---[0;39m [2m[n(11)-127.0.0.1][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Stopping service [Tomcat]
+
+
+
+Create ShopmeFrontEnd Project
+-----------------------------
+
+File->NEW->Spring Starter Project->Name(ShopmeFrontEnd)
+->Uncheck default location and set (/Users/htethtethtun/Java/STS4/ShopmeEcommerce/ShopmeProject/ShopmeWebParent/ShopmeFrontEnd)
+->Description(Shopping web application)
+->NEXT->we dont need depency because of having in parent project->FINISH 
+
+.copy from ShopmeBackEnd pom.xml and replace into ShopmeFrontEnd
+<parent>
+		<groupId>com.shopme</groupId>
+		<artifactId>ShopmeWebParent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+</parent>
+
+.remove groupId and version
+.remove all dependency tag
+
+
+In there, multi module project creating has finished.
+ShopmeProject
+      ShopmeCommon
+      ShopmeWebParent
+            ShopmeBackEnd
+            ShopmeFrontEnd
+
+
+
+.Change Package name of ShopmeFrontEnd to com.shopme.site
+.configure application.properties as followings:
+server.port=80
+server.servlet.context-path=/Shopme
+
+copy the template folder of ShopmeBackEnd src/main/resources
+and edit index file like following:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome me Shopme</title>
+</head>
+<body>
+    <h1>Welcome to Shopme Ecommerce</h1>
+</body>
+</html>
+
+
+.create MainController as following:
+
+package com.shopme.site;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller //Spring MVC's controller
+public class MainController {
+	
+	@GetMapping("") //first handler method that we handle http get request to the homepage of this app
+	public String viewHomePage() {
+		return "index"; 
+	}
+}
+
+.run Boot Dashboard->ShopmeFrontEnd
+Tomcat started on port(s): 8080 (http) with context path ''
+
+※bug is appear ,we will solve later, in video bug is not appear .true is path '/shopme'
+
+.Run ShopmeProject (root project) with 5:Maven install
+you will see as following all project Success
+
+[[1;34mINFO[m] [1mReactor Summary for ShopmeProject 0.0.1-SNAPSHOT:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] ShopmeCommon ....................................... [1;32mSUCCESS[m [ 22.138 s]
+[[1;34mINFO[m] ShopmeWebParent .................................... [1;32mSUCCESS[m [  0.011 s]
+[[1;34mINFO[m] ShopmeBackEnd ...................................... [1;32mSUCCESS[m [ 28.134 s]
+[[1;34mINFO[m] ShopmeProject ...................................... [1;32mSUCCESS[m [  7.054 s]
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  57.991 s
+[[1;34mINFO[m] Finished at: 2023-02-11T12:57:47+09:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+
+Finally, you will see these jar file 
+1. "ShopmeCommon-0.0.1-SNAPSHOT.jar" in ShopmeCommon/target/
+2. "ShopmeBackEnd-0.0.1-SNAPSHOT.jar" in ShopmeWebParent/ShopmeBackEnd/target/
+3. We don't see ShopmeFrontEnd appear in Reactor Summary here
+Therefore, add module for ShopmeFrontEnd in ShopmeWebParent/pom.xml as followings
+
+<module>ShopmeFrontEnd</module>
+
+.Run ShopmeProject (root project) with 5:Maven install
+you will see as following as ShopmeFrontEnd failure because of test class file so delete it src/test/java/com.shopme/ShopmeFrontEndApplicationTests.java
+
+
+[[1;34mINFO[m] [1mReactor Summary for ShopmeProject 0.0.1-SNAPSHOT:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] ShopmeCommon ....................................... [1;32mSUCCESS[m [  1.888 s]
+[[1;34mINFO[m] ShopmeWebParent .................................... [1;32mSUCCESS[m [  0.015 s]
+[[1;34mINFO[m] ShopmeBackEnd ...................................... [1;32mSUCCESS[m [  1.060 s]
+[[1;34mINFO[m] ShopmeFrontEnd ..................................... [1;31mFAILURE[m [  0.064 s]
+[[1;34mINFO[m] ShopmeProject ...................................... [1;33mSKIPPED[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  3.682 s
+[[1;34mINFO[m] Finished at: 2023-02-11T13:49:21+09:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-resources-plugin:3.3.0:resources[m [1m(default-resources)[m on project [36mShopmeFrontEnd[m: [1;31mExecution default-resources of goal org.apache.maven.plugins:maven-resources-plugin:3.3.0:resources failed: newPosition < 0: (-1 < 0)[m -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/PluginExecutionException
+[[1;31mERROR[m] 
+[[1;31mERROR[m] After correcting the problems, you can resume the build with the command
+[[1;31mERROR[m]   [1mmvn <args> -rf :ShopmeFrontEnd[m
+
+
+and run root project with maven install again. if so you will see success ShopmeFrontEnd
+
+[1;34mINFO[m] [1m--- [0;32mmaven-install-plugin:2.4:install[m [1m(default-install)[m @ [36mShopmeProject[0;1m ---[m
+[[1;34mINFO[m] Installing /Users/htethtethtun/Java/STS4/ShopmeEcommerce/ShopmeProject/pom.xml to /Users/htethtethtun/.m2/repository/com/shopme/ShopmeProject/0.0.1-SNAPSHOT/ShopmeProject-0.0.1-SNAPSHOT.pom
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1mReactor Summary for ShopmeProject 0.0.1-SNAPSHOT:[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] ShopmeCommon ....................................... [1;32mSUCCESS[m [  2.133 s]
+[[1;34mINFO[m] ShopmeWebParent .................................... [1;32mSUCCESS[m [  0.014 s]
+[[1;34mINFO[m] ShopmeBackEnd ...................................... [1;32mSUCCESS[m [  0.939 s]
+[[1;34mINFO[m] ShopmeFrontEnd ..................................... [1;32mSUCCESS[m [  1.652 s]
+[[1;34mINFO[m] ShopmeProject ...................................... [1;32mSUCCESS[m [  0.245 s]
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  5.715 s
+[[1;34mINFO[m] Finished at: 2023-02-11T13:59:38+09:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+
+you will see "ShopmeBackEnd-0.0.1-SNAPSHOT.jar" in ShopmeWebParent/ShopmeFrontEnd/target/
+
+
+
+Done#######
+
+ShopmeCommon is used for shared library between ShopmeFrontEnd and ShopmeBackEnd
+
+

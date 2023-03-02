@@ -1,0 +1,77 @@
+
+Some of the important best practices for unit testing that we can follow while doing unit testing in java as a developer
+------------------------------------------------------------------------------------------------------------------------
+
+1. Source Code Structure
+
+.to keep the test classes by separating from the main source code
+.so, they are developed, executed and maintained separately from the production code.
+.Also, it avoids any possibility of running test code in the production environment.
+.We have build tools in java Maven or Gradle to generated standard project structure
+src->main folder->(production code)
+src->test folder(we can keep all test classes)
+above are standard project structure of Maven project
+
+2. Package Naming Convention
+
+.In order to test these respective classes, we should have to create a similar package structure to be more improve the readability and maintainability of the test code.
+
+.The package of the test class should match the package of the source class whose unit of source code it'll test 
+
+src->main->java->net.javaguides.springboot(base package)->1.controller folder -> EmployeeController
+                                            2.exception folder
+                                            3.model folder
+                                            4.repository folder
+                                            5.service folder
+                                            SpringBootTestingApplication
+
+src->test->java->net.javaguides.springboot->1.controller folder -> EmployeeControllerTests
+                                            2.integration folder
+                                            3.repository folder
+                                            5.service folder
+                                            SpringBootTestingApplicationTests
+
+3. Unit Test Case Naming Convention
+
+.This is very important.
+.Whenever you create a unit test case, make sure that you will give a meaningful and descriptive name to your unit test so that anybody can able to understand
+.Test names should be insightful and users should understand the behavior and expection of the test by just glancing name itself.
+.For example, if you follow the given/when/then BDD style naming convention for your unit test, then it should be readable and descriptive.
+...givenEmployeeObject_whenSaveEmployee_thenReturnSavedEmployee
+...givenEmployeeList_whenFindAll_thenReturnListOfEmployees
+...givenEmployeeObject_whenUpdateEmployee_thenReturnUpdatedEmployee
+
+4. Appropriate Assertions
+
+.This is also very important.
+.So whenever we write a unit test, make sure that we use the appropricate assertions to test the actual with expected behavior.
+.Always use proper assertions to verify the expected vs. actual results.
+.We should use various methods available in the Assert class of JUnit or similar frameworks like AssertJ.
+.In this course, we will use an AssertJ framework for assertions.
+.For example, AssertJ Framework basically provides a assertThat API and this API is really, really useful and it has capability to chain the method calls.
+.For example, here we are calling an assertThat method on top of it again, we are calling isNotNuLL method.
+// then -verify the output
+assertThat(employeeList).isNotNull();
+assertThat(employeeList).size()).isEqualTo(2);
+So, here basically we are verifying like the expected versus actual results.
+
+5. Mock External Services
+
+.Although unit test concentrate on specific and smaller pieces of code, there is a chance that the code is dependent on some external services for some logic. Therefore we should mock the external services and merely test the logic and execution of our code for varying scenarios. We can use various frameworks like Mockito, EasyMock, and JMockit for mocking external services.
+
+.For example, consider we are testing, unit testing employee controller.
+It depends on external services like employee service and email service.
+.So in this case, we have to mock the employee service and email service in the employee controller.
+.So make sure that whenever you test any classes then you should mock the external services.
+And In order to mock the external services, we can use, frameworks like Mockito, EasyMock or JMockit
+.And in this course, we are going to use the Mockito framework to mock the dependencies or the external services.
+
+6. Specific Unit Tests
+
+.Make sure that you have a single assert statement in a single unit test
+.And the tests should be focused on testing single specific scenario.
+.It means that Instead of adding multiple assertions to the same unit test, we should create separate test cases.
+.Of course, it's sometimes tempting to verify multiple scenarios in the same test, but it's not a good idea to keep them separate.
+.Then, in the test failures, it'll be easier to determine which specific scenario failed and, likewise, simpler to fix the code.
+.Therefore, always write a unit test to test a single specific scenario.
+

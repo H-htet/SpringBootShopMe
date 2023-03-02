@@ -1,0 +1,83 @@
+1. Will use JUnit / Mockito framework for Unit Testing and Integration Testing for Spring Boot Application
+
+2. Learn How to do Unit Testing with three layers
+.Controller Layer(@WebMVCTest)     -> Mockito 
+.Service Layer                     -> Mockito 
+.Repository Layer(@DataJpaTest)    -> H2 DB
+.Database
+
+3. Learn How to do Integration Testing with three layers
+.Controller Layer(@SpringBootTest) -> 
+.Service Layer   (@SpringBootTest) -> 
+.Repository Layer(@SpringBootTest) -> 
+.MySQLDB
+
+4.In this Course, We will follow BDD style(Behavior driven development(Griven/when/then)) to write Unit test and integration test
+※Basically divided unit test into three parts, Griven/When/Then
+
+5.We will write Jnit Test Case with human readable Format
+@Test
+// given - precondition or setup
+// when  - action or the behaviour that we are going test
+// then  - verify the output
+
+6. We will do Unit test Repository Layer firstly, and Second is Service Layer, At the end, Controller Layer
+
+7. In Repository Layer component, we will learn followings;
+.how to Unit test CRUD methods, 
+.how can you test Native queries, 
+.how to Unit test JPQL queries,
+.how to Unit test custom queries,
+
+8. In Repository Layer component, 
+.will use @DataJpaTest annotation because this annotation internally automatically configure in-memory database for testing purposes.
+.don't have to use Mockito while unit testing repository layer components?
+We will use in-memory database to store and retrieve data.
+
+9. After Finishing Repository Layer Unit test, Move to test Service Layer.
+.Service Layer depends on Repository Layer, So we have to mock repository layer in a service layer. 
+.We will use Mockito framework in order to mock repository component in service layer
+.Mockito is a well-known Java library for mocking objects
+.While unit test in service layer, we will learn how to use Mockito framework and how to use a Mockito framework to mock the objects
+and how to use Mockito provided annotations to mock the object and how to stub the method calls.
+
+10. In Controller Layer, you will learn how to unit test REST APIs, for example, GET,POST,PUT,DELETE RESTAPI
+.While unit test in Controller Layer, we will use Mockito framework because controller layer is depend on Mockito
+.So, In order to unit test Controller layer component, we have to mock service layer component.
+.We use @WevMVCTest annotation to unit test in controller layer
+
+11. In later, you will learn how to do Integration testing.
+
+
+
+Technology, Tools, Databases used in this course.
+-------------------------------------------------
+①Technology :
+
+1.Java11+
+2.Spring Boot
+3.Spring MVC
+4.Spring Data JPA(Hibernate)
+5.JUnit 5 Framework
+6.Mockito Framework
+7.Hamcrest Framework
+8.JsonPath Library
+9.AssertJ Library
+
+②Tools :
+Intellij IDEA
+Maven as dependency management, build management tool
+
+③Database :
+1.H2 In-memory Database for repository layer test
+2.MySQL Database for Integration testing
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+Create and Use GitHub Personal Access Token
+
+https://www.youtube.com/watch?v=NV5WPLm0pZs
+
+
+
+create PAT for github account
+use PAT in git clone command
+use PAT for a Git Repo in Eclipse IDE
+
+.PATs are an alternative to using password authentication
+.A pat provides more granular access(scopes or permissions)
+.PATs can only be used for HTTPS Git operations
+.A PAT can have expiration
+.From August 13,2021:Github requires PAT when using GitHub API or command line
+
+Why GitHub Personal Access Token???
+.Security Benefits:
+ -Unique: tokens are specific to GitHub and can be generated per use or per device
+ -Revocable:
+
+etc
+
+
+1 Create a PAT on GitHub
+
+Github user icon -> setting -> Developer setting on left menu-> Personal access tokens -> click Generate new token ->Note(Repo access token) -> Expiration 30days
+
+Programmar want to access repository so in select scopes, give a check "repo" checkbox 
+-> click generate token
+if so , you will get person access token
+
+
+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

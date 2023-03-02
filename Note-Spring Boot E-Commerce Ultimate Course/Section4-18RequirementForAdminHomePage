@@ -1,0 +1,44 @@
+Understand Requirement for Admin Home Page
+ーーーーーーーーーーーーーーーーーーーーーーーーー
+
+Code Admin Home Page UI
+
+1.Browser Title ： Home - Shopme Admin
+2.Logo
+3.Navigation Menu(Users, Categories, Brands, Products, Customers, Shipping, Orders, Reports, Articles, Menus, Settings)
+4.at the corner of right, show Login User Name
+5.Header : Shopme Control Panel
+6.Main Content : Summary Information about 
+General Information: Edit => Site Name:Shopme, Currrency Symbol:$, Decimal Point Type:POINT, Decimal Digits:2,Thousands Point Type:COMMA
+Users:23,          => ADD User, Endabled:17, Disabled:6, View ALL
+Categories:31,     => Add Categories, Root Categories:2, Enabled
+Brands:54,         => Add Brand, View ALl
+Products:105,      => Add Product, Enabled:104,Disabled:1,In Stock:104, Out of Stock:1, View ALL
+Questions:22,      => View ALL, Approved:20, Unapproved:2, Answered:19, UnAnswered:3
+Reviews:12,        => View ALL, Reviewed, Products:8
+Customers:31,      => Enabled:30, Disabled:1
+Shipping Rates:27, => View All, COD Supported:16
+Orders:77,         => View ALL, New:66, Delivered:7, Processing:4
+Articals:7,        => Create New, View All, Menu-Bound:7, Free:0
+Menu Items:7,      => Create New, View All, Header:3,Footer:4
+Sections:10,       => Add Text Section, View All
+Settings           => Countries:250, States:49
+7.Footer  : that explain Application name and copy right notice (Shopme Control Panel - Copyright @ Shopme)
+
+In this Sections 4, 
+.Creater header(Logo & top-level menu), page heading and Footer
+
+Upcoming sections:
+.Display name of the currently logged-in User
+.Sub menu Items
+
+Near end of the course:
+. Display summary boxes
+
+
+
+
+
+
+
+

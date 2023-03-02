@@ -1,0 +1,241 @@
+Code User Module
+----------------
+
+Code - Role Entity, Role Repository Unit Tests
+----------------------------------------------
+
+In this lecture, we will write code for the Role entity class, RoleRepository interface and some unit tests for the RoleRepository
+
+1.Create a new Java class that maps to the roles table in the database.
+Role table has three columns: id, name and description.
+
+ ※Note that in this course, we won't create the tables manually.
+ Instead, we will use "Hibernate forward engineering feature" that is able to create the tables automatically from Java code - from entity classes.
+
+
+ @Entity
+ public class Product{    --------->   Table
+    //fields
+    //getters
+    //setters
+    ..........
+ }
+
+That is why, we need to set the property spring.jpa.hibernate.ddl-auto=update in the Spring Boot configuration file. Come back to the IDE, and open the ShopmeCommon project here.
+We will put the entity classes in this ShopmeCommon project because the entity classes are shared between ShopemeBackEnd and ShopmeFrontEnd projects.
+So, Open Maven Project file of ShopmeCommon project.
+
+You will see already dependency putted spring-boot-starter-data-jpa in pom.xml as below
+
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+
+Change the package name com.shopme to com.shopme.common.entity
+Create the first Entity class by righting com.shopme.common.entity->NEw->class->Name(Role)->Finish
+
+.And In this Entity class, we need to use the @Entity annotation from JPA to indicate that this class is an entity class.
+.And to map with the table in the database, need to use @Table annotation here, with the name equal to the actual name of the table in the database:roles.
+@Entity
+@Table(name = "roles)
+
+And here, in this entity class, we need to declare the instance fields that map to the corresponding columns in the database table.
+
+private Integer id;// instance field
+private String name;
+private String description;
+
+
+I added by myself because I cannot import javax.persistence.Entity; It have solved.
+<dependency>
+		    <groupId>org.hibernate.javax.persistence</groupId>
+		    <artifactId>hibernate-jpa-2.1-api</artifactId>
+		    <version>1.0.0.Final</version>
+</dependency>
+
+
+package com.shopme.common.entity;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Role {
+	private Integer id;// instance field
+	private String name;
+	private String description;
+}
+
+generate getter and setter methods for these 3 instance fields.,
+Right Click->Source->Generate getter and setters...
+Right Click->Source->Format
+
+
+package com.shopme.common.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "roles")
+public class Role {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //to tell Hibernate that the value of this field will be generated automatically. With the strategy 
+	private Integer id;
+	@Column(length=40, nullable=false, unique=true)
+	private String name;
+	@Column(length=150, nullable=false, unique=true)
+	private String description;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+}
+
+
+.Create Repository Interface
+
+ShopmeBackEnd->src/main/java->com.shopme.admin->create new package(com.shopme.admin.user)->create interface(RoleRepository.java)
+
+
+import the Role class from the shopme.common.package
+if cannot import, ShopmeWebParent->pom.xml->add dependency after copy of ShopmeWebCommon's groupId and artifactId
+
+		<dependency>
+		    <groupId>com.shopme</groupId>
+			<artifactId>ShopmeCommon</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+----------
+
+package com.shopme.admin.user;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.shopme.common.entity.Role;
+
+@Repository
+public interface RoleRepository extends CrudRepository<Role, Integer>{//this interface extends CrudRepository<T, ID> interface provided by Spring Data JPA here, T parameter is for entity type, which is Role, ID type is for ID field
+	
+
+}
+
+--------------
+
+Then, we are ready to write our first unit test class.
+So, go to ShopmeBackEnd project - under the java test
+
+rename package to com.shopme.admin.user
+put unit test class here.. in this package->New->Creae Class -> test class name(RoleRepositoryTests)
+
+package com.shopme.admin.user;
+
+import static org.assertj.core.api.Assertions.assertThat;//imports the assertThat() method, static method from the AssertJ library which is fluent assertion library/API
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import com.shopme.common.entity.Role;
+
+@DataJpaTest //we need to use the @DataJpaTest annotation to leverage the Data JPA test of Spring Data JPA
+@AutoConfigureTestDatabase(replace=Replace.NONE)//run the unit test method against the real database, so we need to use this annotation
+                          //because by default, Spring Data JPA will run the test against an in-memory database.
+                          //Therefore, if you want to test with real database, we need to override the default configuration
+                          //replace = NONE. So it will run the test against the real database.
+public class RoleRepositoryTests {
+	//In this test class, we need to have a reference to the RoleRepository with the @Autowired annotation
+	//to let Spring framework inject an instance of the RoleRepository interface.
+    @Autowired
+    private RoleRepository repo;
+    @Test //first test method with the @Test annotation that comes from the package org.junit.jupiter.api
+          //that means we are using JUnit 5 or Jupiter. 
+    public void testCreateFirstRole() {//we are going to persist the first Role object with the name as Admin and description is Manage everything
+    	Role roleAdmin = new Role("Admin", "manage everything");//create a new Role object here and for convenience, we should write a constructor that takes the role name in the Role entity class here, so create Constructor in Roles Entity class. according to argument constructor of Role class, now we can pass role name and role description here
+        Role saveRole = repo.save(roleAdmin);//to persist this Role object into the database, we can use the method of the RoleRepository  repo.save
+                             //passing the Role object roleAdmin. And this save() method returns a persistent Role object, so we can assign return values to a new Role object for the purpose of assertion
+    	
+        assertThat(saveRole.getId()).isGreaterThan(0);//So we can use here assert method // you will see suggested various assertion methods that come from Assert library instead of the traditional assertion methods come from JUnit 
+                                                      //(saveRole.getId()).isGreaterThan(0) - meaning that the Role object has been actually persisted into the database
+                                                      //will see that imports the assertThat() method, static method from the AssertJ library which is fluent assertion library/API
+                                                      //And Now, We are ready to run this first unit test method
+                                                      //Before that, switch to the MySQL Workbench. And you can see, in the shopme database there, and Refresh All. Database will empty. Now, let's run this test method
+                                                      //Right Click on the method name "testCreateFirstRole()", and click Run as>JUnit Test
+                                                      //we got error here..failed to load driver class.. com.mysql.cj.jdbc.Driver(error:java.lang.RuntimeException)
+                                                      //that means we need to declare dependency for MySQL JDBC driver
+                                                      //So, go to ShopmeWebParent project and open project file pom.xml
+                                                      //And here, we need to specify the dependency for MySQL JDBC driver
+													  /*  <dependency>
+															<groupId>mysql</groupId>
+															<artifactId>mysql-connector-java</artifactId>
+														</dependency>
+													  */
+                                                     // And the scope of the jdbc driver should be runtime - instead of the default one is compile. And save the change.
+                                                     // Therefor, will use as below
+													 /*  <dependency>
+															<groupId>mysql</groupId>
+															<artifactId>mysql-connector-java</artifactId>
+															<scope>runtime</scope>
+														</dependency>
+													  */
+                                                    // And check the Maven dependency section here, for the MySQL JDBC driver
+                                                    // You can see, MySQL JDBC driver version 8 (mysql-connector-j-8.0.32.jar)here. Perfect. Now let's run the test method again
+                                             // Now you will see another error. not a managed type :class com.shopme.common.entity.Role caused by:java.lang.IllegalArgumentException
+    }
+
+}
+
+
+
+Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.shopme.common.entity.Role
+
+Fix above error:
+
+
+
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'roleRepository' defined in com.shopme.admin.user.RoleRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.shopme.common.entity.Role
+
+
+
+Fix Error
+---------
+In Java version 17, following dependency is not supported. Instead of it, We should use JPA annotations from jakarta.peristance.*(Earlier we referred from javax.peristance.*)
+<dependency>
+		    <groupId>org.hibernate.javax.persistence</groupId>
+		    <artifactId>hibernate-jpa-2.1-api</artifactId>
+		    <version>1.0.0.Final</version>
+</dependency>
+
+Remove Hibernate MySQL Dialect from the application.properties file(Spring Boot 3 uses Hibernate 6 so we don't need to specify Hibernate Dialect for MySQL database in the application.properties file.)
+Hibernate automatically detect dialect based on various criteria. 
+Read more about Dialect at Hibernate 6 Dialect https://docs.jboss.org/hibernate/orm/6.0/userguide/html_single/Hibernate_User_Guide.html#database-dialect
+

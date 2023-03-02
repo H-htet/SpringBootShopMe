@@ -1,0 +1,48 @@
+User Module -> Database Design
+------------------------------
+
+
+user table and roles table are many to many relationship
+so, their entity relationship is like below
+
+user 
+user_roles will have user_id and role_id
+roles
+
+
+.Column photos:stores image file name(varchar(64))
+.The actual image file is stored on the file system(development environment)
+or Amazon S3(production environmet on Heroku cloud platform, it will be stored on Amazon S3 Server)
+
+
+
+Class Diagram to understand how we will structure the code of the user module.
+
+see more details in Section6-24-2ClassDiagram.txt
+
+1.View Layer         - users.html, user_form.html
+2.Controller layer   - UserController     =>listAll(),newUser(),saveUser(),editUser(),deleteUser()
+                       UserRestController =>checkDuplicateEmail()
+3.Service layer      - UserService        =>listALL(),save(),get(),delete()
+                     - UserPDFExporter    =>listUsers:list<User> export()
+                     - UserExcelExporter  =>listUsers:list<User> export()
+                     - UserCSVExporter    =>listUsers:list<User> export()
+                     - UserNotFoundException =>
+4.Repository layer   - RoleRepository<interface>    =>In Repository layer, will have 2 entity
+                                                    classes: Role and User
+                     - UserRepository<interface>    =>getUserByEmail(), findAll()
+                                              
+
+
+.UserService - which is the main business class that implements business logics for the user management 
+IN addition, we will have some business classes for exporting user information to PDF,Excel, and CSV
+.UserNotFoundException - this class can be thrown by the methods in the UserService class
+. in the repository layer, we will have 2 entity classes: Role and User that map to the corresponding
+and we will also have 2 repository interfaces: RoleRepository and UserRepository to leverage the API of Spring Data JPA
+
+
+
+
+
+
+
