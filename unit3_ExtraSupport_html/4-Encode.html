@@ -1,0 +1,45 @@
+//explanation syntax
+<!--Web page structure =>html, head, body-->
+<!DOCTYPE html><!--say to Browser, this program will be written by document type. html is Hypertext Markup Language and another one is called html5 because we will write html5 syntax.-->
+<html lang="en"><!--Lang is attritue, En is english, we will use En language to express in this webpage, We should use en because we want to ealisy and harrily search webpage in browser(Search english)  , It is not only support Search Engine but also  spelling , grammmar, bowser with suitable font. In Modern browser, no need to use it.-->
+<head><!--head is container that is called nested element-->
+    <meta charset="utf-8">
+    <meta name="WinHtut" content="Some Info">
+    <meta name="description" content="Pyin Oo Lwin Conditions">
+    <title>Weather</title>
+</head>
+<body>
+    <h1>PyinOoLwin City Weather</h1>
+    <p>Humidity 30% Temp=20*C</p>
+</body>
+</html>
+
+charset is character set
+utf = UCS Transformation format 8 = 8 bit
+
+・upload app to server
+・many people from the world request from their computer to server, at that time server resend encoded data that understand their browser, show web page we see,
+・both webbrowser(accept) and server(resend) know encode data
+・because they use same system among them, that is why we put utf8 for that system
+・send encoding with 8 bit binary representation utf8 from webserver to browser when access sever from 
+・that is why we put utf-8, but some don't use beacuse it is no need to use nowsdays modern browser. 
+・like this request, response unit is not only for web page but also other systems
+however in our webpage, we use 'charset'
+・8 bit is 1 byte(1 byte is for one alphabet) => a is 8bit
+if you cannot caltuate, search 'ascii table binary value' from Google
+decimal is human understand value 0 is decimal = 00000000(8bit) is binary = 1 bytes
+in some small , it is used 4 bits but usually we use 8 bit to complete one alphabet
+
+server want to send a character to client 
+at that time server send with binary code 01100001(Binary)
+if we see a(ASCII) with human understand type, it is 97(Decimal)  
+human know  97 But browsers know each other their encode system (sending and requesting) like sending percel, delivery man cannot know what percel but sender and requester do know well
+
+number system have binary, decimal, Octal, Hex, ASCII
+
+In this program, if we dont know number system, we will not known about binary
+if we dont know about binary system, we will not know their encode system
+that is why we must know number system exactly.
+in our web programming class, will not teach more detailed like claculation etc
+in color, use like hexadecimal #  
+number system => binary => encode system(utf8)

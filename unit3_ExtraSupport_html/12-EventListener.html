@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventListener</title>
+</head>
+<body>
+    <!--form is a set of group, later method use by connecting with js -->
+    <form action="" method="" name="">
+        <input type="button" value="Start Motor" style="color:blueviolet">
+    </form>
+    <p style="color:brown">Motor is Stopped</p>
+
+<script>
+    const button=document.querySelector('input');
+    const paragraph=document.querySelector('p');
+    button.addEventListener('click', buttonAction);
+    function buttonAction(){
+        if(button.value==='Start Motor'){
+            button.value='Stop Motor';
+            paragraph.textContent="Motor is Started"
+        }else{
+            button.value='Start Motor';
+            paragraph.textContent='Motor was Stopped'
+        }
+    }
+    
+</script>
+<!--This process is like that working together Light Switch, Lake, Motor, Water tank-->
+</html>
