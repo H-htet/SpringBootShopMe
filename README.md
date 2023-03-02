@@ -1,2 +1,2 @@
-# SpringBootShopMe
-To refrerence
+# shopme
+Referential Project for Shopme eCommerce Application
