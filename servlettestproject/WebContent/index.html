@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+.content_wrapper{
+	position: relative;
+	max-width: 1080px;
+	max-height: auto;
+	margin : 0 auto;
+}
+.main_container{	
+	max-width:1000px;
+	padding: 10px;
+}
+.sub_container{	
+	max-width: 800px;
+	max-height: auto;
+	padding: 20px;
+}
+.lbl-container{
+	max-width: 200px;
+	max-height: auto;
+	float: left;
+}
+lable.lbl {
+    margin-right: 60px;
+    max-height: auto;
+}
+.txt-container{
+	max-width: 200px;
+	max-height: auto;
+	float: left;
+}
+.rdo-container{
+	max-width: 200px;
+	max-height: auto;
+	float: left;
+	margin-left:44px;
+}
+.selectlist-container{
+	max-width: 200px;
+	max-height: auto;
+	float: left;
+	margin-left:-8px;
+}
+.btn-container {
+	width: 800px;
+	float: left;
+	margin-left: 240px;
+	margin-top: 20px;
+}
+#txtName{
+	width: 200px;
+}#txtDob{
+	width: 200px;
+	margin-left:4px;
+}
+#selectlist{
+	width: 200px;
+	margin-left:0px;
+}
+
+</style>
+</head>
+<body>
+	<form action="Exercise1Servlet" method="post">	
+		<div class="content_wrapper">		
+			<div class="main_container">		
+				<div class="sub_container">
+					<div class="lbl-container"><lable class="lbl">Name</lable></div>
+					<div class="txt-container"><input type="text" name="name" class="txt" id="txtName" required></div>
+				</div>		
+				<div class="sub_container">
+					<div class="lbl-container"><lable class="lbl">DOB</lable></div>
+					<div class="txt-container"><input type="date" name="dob" class="txt" id="txtDob" required></div>
+				</div>		
+				<div class="sub_container">
+					<div class="lbl-container"><label class="lbl">Gender</label></div>
+					<div class="rdo-container">
+					<label><input type="radio" name="gender" value="male" class="rdo">Male</label>
+					<label><input type="radio" name="gender" value="female" class="rdo">Female</label>
+					</div>
+				</div>		
+				<div class="sub_container">
+					<div class="lbl-container"><lable class="lbl">Course</lable></div>
+					<div class="selectlist-container">
+						<select name="subject" id="selectlist" multiple>
+						<option value="Java">Java</option>
+						<option value="Php">Php</option>
+						<option value="Android">Android</option>
+						<option value="ASP">ASP</option>
+						</select>
+					</div>
+				</div>			
+				<div class="sub_container">
+					<div class="btn-container"><input type="submit" value="Submit" class="btn"></div>
+				</div>		
+			</div>
+		</div>
+	</form>
+</body>
+</html>
